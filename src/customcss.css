@@ -1,0 +1,49 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+.sidebar {
+    display:block;
+    width: 3rem;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.center-icons{
+  align-items: center;
+}
+
+.font-kalam{
+  font-family: 'Kalam', cursive;
+}
+
+.font-lato{
+  font-family: 'Lato', sans-serif;
+}
+
+.top-4{
+  top: 4rem;
+  position:fixed;
+}
+
+.left-3{
+  left: 3rem;
+}
+
+.title-font{
+  font-family: 'Lilita One', cursive;
+}
+
+.dp-size{
+  height: 2rem;
+  width: 2rem;
+}
+
+.pointer-cursor{
+  cursor: pointer;
+}
