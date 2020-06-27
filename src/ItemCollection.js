@@ -86,6 +86,7 @@ export default function HomePage(){
                     </div>
                     </div>)
             })}
+            {isFetching && 'Loading more items...'}
             {/* <div class="px-10 pb-5">
             <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
                 <img class="w-full h-full object-cover object-center" src="https://acnhcdn.com/latest/FtrIcon/FtrAcorsticguitar_Remake_0_0.png" alt="avatar" />
