@@ -11,7 +11,7 @@ export default function HomePage(){
     // Equivalent of componentDidMount
     useEffect(()=>{
         setTimeout(() => setSpinner(false), 3000)
-        axios.get('http://acnhapi.com/v1/houseware/')
+        axios.get('https://acnhapi.com/v1/houseware/')
         .then(res=>{
             const itemList = res.data;
 
