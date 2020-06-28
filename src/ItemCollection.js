@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import stamp from './img/stamp.png';
 
 export default function HomePage(){
 
@@ -33,7 +34,6 @@ export default function HomePage(){
 
             setItems(filteredItemList);
             setListItems(filteredItemList.slice(0,20));
-            console.log(filteredItemList.slice(0,20));
         })
     },[])
 
@@ -45,14 +45,12 @@ export default function HomePage(){
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setIsFetching(true);
-        console.log('Loading more items!');
     }
 
     const fetchMoreListItems = () => {
         setTimeout(() => {
             setListItems(prevState => ([...prevState, ...items.slice(listItems.length + 1, listItems.length + 20)]));
             setIsFetching(false);
-            console.log(listItems)
           }, 2000);
     }
 
@@ -60,6 +58,14 @@ export default function HomePage(){
     if (!isFetching) return;
     fetchMoreListItems();
     }, [isFetching]);
+
+    const toggleHidden = (id) => {
+        const elem = document.getElementById(id);
+        if(elem != null){elem.classList.toggle("hidden")};
+
+        const elem2 = document.getElementById(id + " img")
+        if(elem != null){elem2.classList.toggle("opacity-50")};
+    }
 
     return(
         spinner ? 
@@ -71,8 +77,15 @@ export default function HomePage(){
             
             
             {listItems.map((item)=>{
-                    return (<div class="px-10 pb-5">
-                    <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
+                    return (
+                    <div class="px-10 pb-5" key={item.name['name-USen'] + " " + item.variant} onClick={() => toggleHidden(item.name['name-USen'] + " " + item.variant)} >
+                    <div class="relative max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
+                        
+                        <div class="absolute collected" id={item.name['name-USen'] + " " + item.variant}>
+                            {/* <i class="far fa-check-circle"></i> */}
+                            <img src={stamp} />
+                        </div>
+                        <div class="opacity-50" id={item.name['name-USen'] + " " + item.variant + " img"}>
                         <img class="w-full h-full object-cover object-center" src={item.image_uri} alt="avatar" />
                         
                         <div class="py-4 px-6">
@@ -83,10 +96,14 @@ export default function HomePage(){
                             </div>
                             
                         </div>
+                        </div>
+                    </div>
+                    <div class="px-4 flex items-center text-gray-700">
+                        <i class="fas fa-user-friends"></i>
+                        <h1 class="px-2 text-sm">Your friend has this!</h1>
                     </div>
                     </div>)
             })}
-            {isFetching && 'Loading more items...'}
             {/* <div class="px-10 pb-5">
             <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
                 <img class="w-full h-full object-cover object-center" src="https://acnhcdn.com/latest/FtrIcon/FtrAcorsticguitar_Remake_0_0.png" alt="avatar" />
@@ -123,6 +140,7 @@ export default function HomePage(){
             
 
         </div>
+        {isFetching ? <div class="my-4 flex w-1/5 ml-auto mr-auto justify-center bg-blue-900 text-white font-bold py-2 px-4 rounded">'Loading more items...'</div> : null}
         </div>
 
     )

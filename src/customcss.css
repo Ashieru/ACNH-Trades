@@ -91,3 +91,10 @@
     transform: rotate(360deg);
   }
 }
+
+.collected{
+  top: 10%;
+  left: 2%;
+  opacity: 100%;
+  /* font-size: 10rem; */
+}

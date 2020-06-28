@@ -37,7 +37,7 @@ export default class HomePage extends Component{
                 <div class="pointer-cursor hover:bg-orange-300 border-r-8 border-b-8 hover:border-orange-300 border-yellow-600 bg-orange-200 rounded-lg p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
                     
-                    <div class="text-center text-gray-900 font-bold text-5xl my-1 font-kalam">Recipies Collected</div> 
+                    <div class="text-center text-gray-900 font-bold text-5xl my-1 font-kalam">Recipes Collected</div> 
                     <img class="mx-32 block" src="https://acnhcdn.com/latest/MenuIcon/BookRecipe.png" />
                     
                     </div>
@@ -63,7 +63,7 @@ export default class HomePage extends Component{
                     <div class="mb-8 block ml-32"><p class="text-4xl font-lato">Check if your friends have it</p></div>
 
                     <div class="block ml-32 mr-24">
-                        <input class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none bg-white focus:border-gray-500" type="text" placeholder="Enter item/recipe name" select></input>
+                        <input class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none bg-white focus:border-gray-500" type="text" placeholder="Enter item/recipe name"></input>
                     </div>
 
                 </div>
