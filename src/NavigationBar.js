@@ -13,7 +13,7 @@ export default function NavigationBar() {
                         <div class="w-2/5">
                             {/* Title */}
                             <div class="inline-block flex-shrink px-2 justify-center md:justify-start text-white">
-                                <p class="text-base title-font">Help-me-think-of-name v1.0</p>
+                                <p class="text-base title-font">ACNH Trades v1.0</p>
                             </div>
 
                             {/* Dropdown */}
