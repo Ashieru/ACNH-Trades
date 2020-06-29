@@ -64,7 +64,7 @@ export default function HomePage(){
         if(elem != null){elem.classList.toggle("hidden")};
 
         const elem2 = document.getElementById(id + " img")
-        if(elem != null){elem2.classList.toggle("opacity-50")};
+        if(elem != null){elem2.classList.toggle("transparent-overlay")};
     }
 
     return(
@@ -85,8 +85,8 @@ export default function HomePage(){
                             {/* <i class="far fa-check-circle"></i> */}
                             <img src={stamp} />
                         </div>
-                        <div class="opacity-50" id={item.name['name-USen'] + " " + item.variant + " img"}>
-                        <img class="w-full h-full object-cover object-center" src={item.image_uri} alt="avatar" />
+                        <div class="transparent-overlay" id={item.name['name-USen'] + " " + item.variant + " img"}>
+                        <img class="mx-auto object-cover object-center" src={item.image_uri} alt="avatar" />
                         
                         <div class="py-4 px-6">
                             <h1 class="text-2xl font-semibold text-gray-800">{item.name['name-USen']}</h1>
