@@ -20,8 +20,8 @@
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "webpack-dev-server",
+    "dev": "webpack-dev-server",
+    "start": "serve -s dist",
     "watch": "webpack --watch",
     "build": "webpack",
     "test": "react-scripts test",
