@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { BrowserRouter as Router, Link} from "react-router-dom";
-import "@fortawesome/fontawesome-free/css/all.css";
 import Container from './Container.js';
 
 export default function Sidebar(){

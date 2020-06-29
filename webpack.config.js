@@ -2,10 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/App.js',
+    entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.join(__dirname, '/public')
+        path: path.join(__dirname, 'dist')
     },
     module: {
         rules: [
@@ -57,5 +57,17 @@ module.exports = {
             }
         ]
     },
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            favicon: './public/favicon.ico',
+            manifest: "./public/manifest.json"
+        })
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 3000
+    },
+    devtool: 'eval-cheap-module-source-map'
 };
