@@ -28,10 +28,10 @@ export default function Sidebar(){
                                 <i class="fas fa-chair"></i>
                             </a></Link>
                         </li>
-                        <li class="flex-1 hover:bg-blue-300">
-                        <a href="#" class="block py-2 px-1 align-middle text-white border-gray-800 hover:border-purple-500">
-                            <i class="fas fa-file"></i>
-                        </a>
+                        <li class="flex-1 hover:bg-blue-300" onClick={() => setPage("RecipeCollection")}><Link to="/recipe-collection">
+                            <a href="#" class="block py-2 px-1 align-middle text-white border-gray-800 hover:border-purple-500">
+                                <i class="fas fa-file"></i>
+                            </a></Link>
                         </li>
                         <li class="flex-1 hover:bg-blue-300">
                         <a href="#" class="block py-2 px-1 align-middle text-white border-gray-800 hover:border-purple-500">

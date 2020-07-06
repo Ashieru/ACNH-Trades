@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import stamp from './img/stamp.png';
 
-export default function ItemCollection(){
+export default function RecipeCollection(){
 
     const [items, setItems] = useState([]);
     const [ spinner, setSpinner ] = useState(true);
@@ -25,14 +25,12 @@ export default function ItemCollection(){
                 // key: the name of the object key
                 // index: the ordinal position of the key within the object 
 
-                itemList[key].length > 1 ? itemList[key].forEach((obj) => {
-                    itemListArray.push(obj);
-                }) : itemListArray.push(itemList[key]);
+                itemListArray.push(itemList[key]);
 
             });
             
             const filteredItemList = itemListArray.filter((obj) => {
-                return obj['buy-price'] != null;
+                return obj.length > 1 ? obj[0]['isDIY'] === true : obj['isDIY'] === true;
             })
 
             setItems(filteredItemList);
@@ -74,7 +72,7 @@ export default function ItemCollection(){
     const handleKeyPress = (evt) => {
         if (evt.key === 'Enter') {
             const temp = items.filter((item) => {
-                return item.name['name-USen'].includes(searchTerm);
+                return item[0].name['name-USen'].includes(searchTerm);
             })
             temp.length < 1 ? setSearchedItem([{"name": {"name-USen":"Item not found" }, "image_uri":"https://acnhcdn.com/latest/ManpuIcon/Oops.png", "variant": "?????"}]): setSearchedItem(temp);
         }
@@ -87,7 +85,7 @@ export default function ItemCollection(){
             <div class="pt-32 max-w-full w-screen lg:max-w-full">
                 <div class="flex flex-wrap pb-8">
                     <div class="w-3/5">
-                    <h2 class="text-4xl ml-32 inline"> Item Collection </h2>
+                    <h2 class="text-4xl ml-32 inline"> Recipe Collection </h2>
                     <div class="inline-block my-auto ml-3">
                         <input 
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" 
@@ -145,10 +143,41 @@ export default function ItemCollection(){
                             return(
                                 <tr>
                                 <td class="border-b border-gray-900 px-4 py-2 bg-gray-300">
-                                    <h1 class="text-xl font-semibold text-gray-800">{item.name['name-USen']}</h1>
+                                    <h1 class="text-xl font-semibold text-gray-800">{item[0].name['name-USen']}</h1>
                                 </td>
-                                <td class="text-center border-b border-gray-900 px-4 py-2 bg-gray-300">{item.variant !== null ? item.variant : "☓"}</td>
-                                <td class="text-center border-b border-gray-900 px-4 py-2 bg-gray-300">{item.pattern !== null ? item.pattern : "☓"}</td>
+                                <td class="text-center border-b border-gray-900 px-4 py-2 bg-gray-300">
+                                    { item[0].variant !== null ? <span class="flex"><i class="fas fa-palette"></i>
+                                        <select name="variant" id="variant" class="bg-gray-300">
+                                            {
+                                                item.length > 1 ? 
+                                                    item.map((obj) => {
+                                                        return(<option value={obj.variant}>{obj.variant}</option>)
+                                                    })
+                                                :
+                                                    null
+                                            }
+                                        </select></span> : null
+                                    }
+                                </td>
+                                <td class="text-center border-b border-gray-900 px-4 py-2 bg-gray-300">
+                                    {
+                                        item[0].pattern !== null ? 
+                                            item[0].pattern !== null ? 
+                                            <span class="flex"><i class="fas fa-tint"></i>
+                                            <select name="pattern" id="pattern">
+                                                {
+                                                    item.length > 1 ? 
+                                                        item.map((obj) => {
+                                                            return(<option value={obj.pattern}>{obj.pattern}</option>)
+                                                        })
+                                                    :
+                                                    null
+                                                }
+                                            </select></span> 
+                                            : null
+                                     : "☓"
+                                    }
+                                </td>
                                 <td class=" text-right border-b border-gray-900 px-4 py-2 bg-gray-300"><span class="text-2xl"><i class="fas fa-user-friends"></i><input class="ml-2" type="checkbox" /></span></td>
                                 </tr>
                             )
@@ -161,22 +190,42 @@ export default function ItemCollection(){
                     searchTerm !== "" ? 
                     searchedItem.map((item) => {
                         return(
-                            <div class="px-10 pb-5" key={item.name['name-USen'] + " " + item.variant + " " + item.pattern} onClick={() => toggleHidden(item.name['name-USen'] + " " + item.variant + " " + item.pattern)} >
+                            <div class="px-10 pb-5" key={item[0].name['name-USen']}>
                             <div class="relative max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
                                 
-                                <div class="absolute collected hidden" id={item.name['name-USen'] + " " + item.variant + " " + item.pattern}>
+                                <div class="absolute collected hidden" id={item[0].name['name-USen']}>
                                     <img src={stamp} />
                                 </div>
-                                <div class="" id={item.name['name-USen'] + " " + item.variant + " " + item.pattern + " img"}>
-                                <img class="mx-auto object-cover object-center" src={item.image_uri} alt="avatar" />
+                                <div class="" id={item[0].name['name-USen'] + " img"}>
+                                <img class="mx-auto object-cover object-center" src={item[0].image_uri} alt="avatar"  onClick={() => toggleHidden(item[0].name['name-USen'])} />
                                 
                                 <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">{item.name['name-USen']}</h1>
+                                    <h1 class="text-2xl font-semibold text-gray-800">{item[0].name['name-USen']}</h1>
                                     <div class="flex items-center mt-4 text-gray-700">
-                                        { item.variant !== null ? <span class="flex"><i class="fas fa-palette"></i>
-                                        <h1 class="px-2 text-sm">{item.variant}</h1></span> : null}
-                                        { item.pattern !== null ? <span class="flex"><i class="fas fa-tint"></i>
-                                        <h1 class="px-2 text-sm">{item.pattern}</h1></span> : null }
+                                        { item[0].variant !== null ? <span class="flex"><i class="fas fa-palette"></i>
+                                            <select name="variant" id="variant">
+                                                {
+                                                    item.length > 1 ? 
+                                                        item.map((obj) => {
+                                                            return(<option value={obj.variant}>{obj.variant}</option>)
+                                                        })
+                                                    :
+                                                     null
+                                                }
+                                            </select></span> : null
+                                        }
+                                        { item[0].pattern !== null ? <span class="flex"><i class="fas fa-tint"></i>
+                                            <select name="pattern" id="pattern">
+                                                {
+                                                    item.length > 1 ? 
+                                                        item.map((obj) => {
+                                                            return(<option value={obj.pattern}>{obj.pattern}</option>)
+                                                        })
+                                                    :
+                                                     null
+                                                }
+                                            </select></span> : null
+                                        }
                                     </div>
                                     
                                 </div>
@@ -191,22 +240,44 @@ export default function ItemCollection(){
                     })
                     : listItems.map((item)=>{
                         return (
-                            <div class="px-10 pb-5" key={item.name['name-USen'] + " " + item.variant + " " + item.pattern} onClick={() => toggleHidden(item.name['name-USen'] + " " + item.variant + " " + item.pattern)} >
+                            <div class="px-10 pb-5" key={item[0].name['name-USen']}>
                             <div class="relative max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
                                 
-                                <div class="absolute collected hidden" id={item.name['name-USen'] + " " + item.variant + " " + item.pattern}>
+                                <div class="absolute collected hidden" id={item[0].name['name-USen']}>
                                     <img src={stamp} />
                                 </div>
-                                <div class="" id={item.name['name-USen'] + " " + item.variant + " " + item.pattern + " img"}>
-                                <img class="mx-auto object-cover object-center" src={item.image_uri} alt="avatar" />
+                                <div class="" id={item[0].name['name-USen'] + " img"} >
+                                <img class="mx-auto object-cover object-center" src={item[0].image_uri} alt="avatar" onClick={() => toggleHidden(item[0].name['name-USen'])} />
                                 
                                 <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">{item.name['name-USen']}</h1>
+                                    <h1 class="text-2xl font-semibold text-gray-800">{item[0].name['name-USen']}</h1>
                                     <div class="flex items-center mt-4 text-gray-700">
-                                        { item.variant !== null ? <span class="flex"><i class="fas fa-palette"></i>
-                                        <h1 class="px-2 text-sm">{item.variant}</h1></span> : null}
-                                        { item.pattern !== null ? <span class="flex"><i class="fas fa-tint"></i>
-                                        <h1 class="px-2 text-sm">{item.pattern}</h1></span> : null }
+                                    
+                                        { item[0].variant !== null ? <span class="flex"><i class="fas fa-palette"></i>
+                                            <select name="variant" id="variant">
+                                                {
+                                                    item.length > 1 ? 
+                                                        item.map((obj) => {
+                                                            return(<option value={obj.variant}>{obj.variant}</option>)
+                                                        })
+                                                    :
+                                                     null
+                                                }
+                                            </select></span> : null
+                                        }
+                                        
+                                        { item[0].pattern !== null ? <span class="flex"><i class="fas fa-tint"></i>
+                                            <select name="pattern" id="pattern">
+                                                {
+                                                    item.length > 1 ? 
+                                                        item.map((obj) => {
+                                                            return(<option value={obj.pattern}>{obj.pattern}</option>)
+                                                        })
+                                                    :
+                                                     null
+                                                }
+                                            </select></span> : null
+                                        }
                                     </div>
                                     
                                 </div>
@@ -221,6 +292,7 @@ export default function ItemCollection(){
                 } 
 
         </div>
+
         {searchTerm === "" && <div>
             <button 
                 class="hover:bg-white border border-blue-900 hover:text-blue-900 my-4 flex w-1/5 ml-auto mr-auto justify-center bg-blue-900 text-white font-bold py-2 px-4 rounded"
