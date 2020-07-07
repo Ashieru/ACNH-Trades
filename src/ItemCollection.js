@@ -101,13 +101,13 @@ export default function ItemCollection(){
                     </div>
                     {/* Toggle button */}
                     <label 
-                        for="toogleA"
+                        for="list-toggle"
                         class="content-center cursor-pointer ml-3 text-sm my-auto justify-end flex w-1/5 font-lato"
                     >
                         {/* toggle */}
                         <div class="relative inline-block">
                         {/* input */}
-                        <input id="toogleA" type="checkbox" class="hidden" 
+                        <input id="list-toggle" type="checkbox" class="hidden" 
                         onClick={() => setListView(!listView)} 
                         />
                         {/* line */}
